@@ -41,8 +41,8 @@ public class ProductService {
         return ResponseEntity.status(HttpStatus.CREATED).body(productRepository.save(newProductModel));
     }
 
-    public ResponseEntity<List<ProductModel>> getAllProducts() {
-        return ResponseEntity.status(HttpStatus.OK).body(productRepository.findAll());
+    public List<ProductModel> getAllProducts() {
+        return productRepository.findAll();
     }
 
     public ResponseEntity<Object> getProductById(UUID productId) {

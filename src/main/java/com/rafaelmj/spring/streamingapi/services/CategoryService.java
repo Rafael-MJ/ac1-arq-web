@@ -23,14 +23,14 @@ public class CategoryService {
     CategoryRepository categoryRepository;
 
     @Transactional()
-    public ResponseEntity<CategoryModel> saveCategory(CategoryDTO newCategoryDto) {
+    public CategoryModel saveCategory(CategoryDTO newCategoryDto) {
         var newCategoryModel = new CategoryModel();
         BeanUtils.copyProperties(newCategoryDto, newCategoryModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(categoryRepository.save(newCategoryModel));
+        return categoryRepository.save(newCategoryModel);
     }
 
-    public ResponseEntity<List<CategoryModel>> getAllCategories() {
-        return ResponseEntity.status(HttpStatus.OK).body(categoryRepository.findAll());
+    public List<CategoryModel> getAllCategories() {
+        return categoryRepository.findAll();
     }
 
     public ResponseEntity<Object> getCategoryById(UUID categoryId) {

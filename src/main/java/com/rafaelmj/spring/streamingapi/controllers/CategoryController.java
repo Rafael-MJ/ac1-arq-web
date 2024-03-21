@@ -5,6 +5,7 @@ import com.rafaelmj.spring.streamingapi.models.CategoryModel;
 import com.rafaelmj.spring.streamingapi.services.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +21,12 @@ public class CategoryController {
 
     @PostMapping()
     public ResponseEntity<CategoryModel> saveCategory(@RequestBody @Valid CategoryDTO newCategoryDto) {
-        return categoryService.saveCategory(newCategoryDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.saveCategory(newCategoryDto));
     }
 
     @GetMapping()
     public ResponseEntity<List<CategoryModel>> getAllCategories() {
-        return categoryService.getAllCategories();
+        return ResponseEntity.status(HttpStatus.OK).body(categoryService.getAllCategories());
     }
 
     @GetMapping("/{id}")

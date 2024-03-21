@@ -6,6 +6,7 @@ import com.rafaelmj.spring.streamingapi.services.ProductService;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ public class ProductController {
 
     @GetMapping()
     public ResponseEntity<List<ProductModel>> getAllProducts() {
-        return productService.getAllProducts();
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProducts());
     }
 
     @GetMapping("/{id}")
