@@ -18,40 +18,41 @@ public class AC1Application {
 
 	@Bean
 	public CommandLineRunner init(@Autowired ProdutoRepository produtoRepository,
-			@Autowired CategoriaRepository categoriaProdutoRepository) {
+			@Autowired CategoriaRepository categoriaRepository) {
 		return args -> {
-			/* categoriaProdutoRepository.inserir(new Categoria(0, "Alimentação", "Produtos para consumo"));
-			categoriaProdutoRepository.inserir(new Categoria(0, "Limpeza", "Produtos para limpeza e higiene"));
-
-			System.out.println("\nEXEMPLO: Listar todas as categorias");
-			List<Categoria> listaCategorias = categoriaProdutoRepository.selecionarTodos();
-			listaCategorias.forEach(System.out::println);
-
-			produtoRepository.inserir(new Produto(0l, "Banana Nanica", 500));
-			produtoRepository.inserir(new Produto(0l, "Vanish tira manchas", 250));
-
-			System.out.println("\nEXEMPLO: Listar todos os produtos");
-			List<Produto> listaProdutos = produtoRepository.selecionarTodos();
-			listaProdutos.forEach(System.out::println);
-
-			Produto cBanana = listaProdutos.get(0);
-			Produto cVanish = listaProdutos.get(1);
-			cBanana.setId_categoria(listaCategorias.get(0));
-			cVanish.setId_categoria(listaCategorias.get(1));
-			produtoRepository.inserir(cBanana);
-			produtoRepository.inserir(cVanish);
-
-			System.out.println("\nEXEMPLO: Listar por ID");
-			listaProdutos = produtoRepository.selecionarPorId(cBanana.getId());
-			listaProdutos.forEach(System.out::println);
+			Categoria limpeza = Categoria.builder().nome("Limpeza").build();
+			Categoria confeitaria = Categoria.builder().nome("Confeitaria").build();
+			Categoria enlatados = Categoria.builder().nome("Enlatados").build();
 			
-			System.out.println("\nEXEMPLO: Edição de produto");
-			cVanish.setNome("Vanish Black and White (Editado)");
-			cVanish.setQtd(100);
-			cVanish = produtoRepository.editar(cVanish);
+			categoriaRepository.save(limpeza);
+			categoriaRepository.save(confeitaria);
+			categoriaRepository.save(enlatados);
 			
-			listaProdutos = produtoRepository.selecionarPorId(cVanish.getId());
-			listaProdutos.forEach(System.out::println); */
+			Produto omo = Produto.builder().nome("Omo Clear").preco(25).id_categoria(limpeza).build();
+			Produto vanish = Produto.builder().nome("Vanish Black & White").preco(20.0).id_categoria(limpeza).build();
+			Produto bolo = Produto.builder().nome("Bolo de Cenoura").preco(15.0).id_categoria(confeitaria).build();
+			Produto sardinha = Produto.builder().nome("Sardinha").preco(8.0).id_categoria(enlatados).build();
+			
+			produtoRepository.save(omo);
+			produtoRepository.save(vanish);
+			produtoRepository.save(bolo);
+			produtoRepository.save(sardinha);
+			
+			System.out.println("PRODUTOS: Preço > 15:");
+			produtoRepository.findByPrecoGreaterThan(15.0).forEach(System.out::println);
+			
+			System.out.println("\nPRODUTOS: Preço <= 20:");
+			produtoRepository.findByPrecoLessThanEqual(20.0).forEach(System.out::println);
+			
+			System.out.println("\nPRODUTOS: Nome inicia com 'S':");
+			produtoRepository.findByNomeStartingWith("S").forEach(System.out::println);
+			
+			System.out.println("\nCATEGORIAS: Nome inicia com'C':");
+			categoriaRepository.findByNomeStartingWith("C").forEach(System.out::println);
+			
+			System.out.println("\nCATEGORIA: ID = 1 e produtos relacionados:");
+			var categoria1 = categoriaRepository.findByIdWithProdutos(1L);
+			System.out.println(categoria1.toString() + categoria1.getProdutos());
 		};
 	}
 
