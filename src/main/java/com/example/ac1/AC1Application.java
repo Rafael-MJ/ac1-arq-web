@@ -8,9 +8,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.example.ac1.models.CategoriaProduto;
+import com.example.ac1.models.Categoria;
 import com.example.ac1.models.Produto;
-import com.example.ac1.repositories.CategoriaProdutoRepository;
+import com.example.ac1.repositories.CategoriaRepository;
 import com.example.ac1.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -18,13 +18,13 @@ public class AC1Application {
 
 	@Bean
 	public CommandLineRunner init(@Autowired ProdutoRepository produtoRepository,
-			@Autowired CategoriaProdutoRepository categoriaProdutoRepository) {
+			@Autowired CategoriaRepository categoriaProdutoRepository) {
 		return args -> {
-			categoriaProdutoRepository.inserir(new CategoriaProduto(0, "Alimentação", "Produtos para consumo"));
-			categoriaProdutoRepository.inserir(new CategoriaProduto(0, "Limpeza", "Produtos para limpeza e higiene"));
+			/* categoriaProdutoRepository.inserir(new Categoria(0, "Alimentação", "Produtos para consumo"));
+			categoriaProdutoRepository.inserir(new Categoria(0, "Limpeza", "Produtos para limpeza e higiene"));
 
 			System.out.println("\nEXEMPLO: Listar todas as categorias");
-			List<CategoriaProduto> listaCategorias = categoriaProdutoRepository.selecionarTodos();
+			List<Categoria> listaCategorias = categoriaProdutoRepository.selecionarTodos();
 			listaCategorias.forEach(System.out::println);
 
 			produtoRepository.inserir(new Produto(0l, "Banana Nanica", 500));
@@ -51,7 +51,7 @@ public class AC1Application {
 			cVanish = produtoRepository.editar(cVanish);
 			
 			listaProdutos = produtoRepository.selecionarPorId(cVanish.getId());
-			listaProdutos.forEach(System.out::println);
+			listaProdutos.forEach(System.out::println); */
 		};
 	}
 
